@@ -1,7 +1,7 @@
 
-# Untitled Wiki App
+# Open Wiki
 
-A collaborative online encyclopedia app for (insert theme here)
+An open source standard for custom wikis. Fans can set up a wiki for something they're excited about by simply cloning and deploying this repo, as well as the <a href="https://github.com/cooperwhitley/wikiAPI">associated API</a>. No longer will using ad-riddled low performance proprietary wiki web apps or designing your own be the requirement to build a knowledge base for an online community.
 
 ## Screenshots
 
@@ -24,19 +24,32 @@ A collaborative online encyclopedia app for (insert theme here)
 - Log in/out
 - Write an article, which includes...
   - A title
-  - A category
   - A summary paragraph
   - Image upload
   - A quick information box
   - Sub sections
   - References
   - Links to other articles
-- Discuss an article on its own discussion page
 - Edit any article
 
 ### Wireframes
+<img src="./public/readme-images/homepage.jpg" alt="home page wireframe">
+<img src="./public/readme-images/articlepage.jpg" alt="article page wireframe">
+
 
 ### ERD
 
+<img src="./public/readme-images/erd.png" alt="entity relationship diagram">
+
 ## Next Steps
 
+- Unified editor for all subdocs in an article
+- Inline links
+- Version/edit history
+- Article categories
+- Article discussion forums
+- General forums
+- Wiki admin features, such as...
+  - Restricting edit access
+  - Wiki branding options
+  - Content moderation tools
