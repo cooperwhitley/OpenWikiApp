@@ -1,7 +1,7 @@
 
 # Open Wiki
 
-An open source standard for custom wikis. Fans can set up a wiki for something they're excited about by simply cloning and deploying this repo, as well as the <a href="https://github.com/cooperwhitley/wikiAPI">associated API</a>. No longer will using ad-riddled low performance proprietary wiki web apps or designing your own be the requirement to build a knowledge base for an online community.
+An open source standard for custom wikis. Fans can set up a wiki for something they're excited about by simply cloning and deploying this repo, as well as the <a href="https://github.com/cooperwhitley/OpenWikiAPI">associated API</a>. No longer will using ad-riddled low performance proprietary wiki web apps or designing your own be the requirement to build a knowledge base for an online community.
 
 ## Screenshots
 
