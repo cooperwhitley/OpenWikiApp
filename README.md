@@ -34,7 +34,6 @@ An open source standard for custom wikis. Fans can set up a wiki for something t
 
 ### Wireframes
 <img src="./public/readme-images/homepage.jpg" alt="home page wireframe">
-<img src="./public/readme-images/articlepage.jpg" alt="article page wireframe">
 
 
 ### ERD
