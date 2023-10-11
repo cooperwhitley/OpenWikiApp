@@ -6,20 +6,14 @@ export const getAllArticles = () => {
     return axios(`${apiUrl}/articles`)
 }
 
-// Show
-export const getOneArticle = (id) => {
-    return axios(`${apiUrl}/articles/${id}`)
-}
-
-// Create
-export const createArticle = (user, newArticle) => {
+// Delete
+export const removeArticle = (user, articleId) => {
     return axios({
-        url: `${apiUrl}/articles`,
-        method: 'POST',
+        url: `${apiUrl}/articles/${articleId}`,
+        method: 'DELETE',
         headers: {
             Authorization: `Token token=${user.token}`
-        },
-        data: { article: newArticle }
+        }
     })
 }
 
@@ -35,13 +29,19 @@ export const updateArticle = (user, updatedArticle) => {
     })
 }
 
-// Delete
-export const removeArticle = (user, articleId) => {
+// Create
+export const createArticle = (user, newArticle) => {
     return axios({
-        url: `${apiUrl}/articles/${articleId}`,
-        method: 'DELETE',
+        url: `${apiUrl}/articles`,
+        method: 'POST',
         headers: {
             Authorization: `Token token=${user.token}`
-        }
+        },
+        data: { article: newArticle }
     })
+}
+
+// Show
+export const getOneArticle = (id) => {
+    return axios(`${apiUrl}/articles/${id}`)
 }
