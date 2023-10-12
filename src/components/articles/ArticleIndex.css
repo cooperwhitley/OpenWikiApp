@@ -1,0 +1,22 @@
+.ArticleIndex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.ArticleListCard {
+    width: 19rem;
+    margin: .5rem;
+    transition: width 500ms ease;
+}
+
+.ArticleListCardLink {
+    text-align: right;
+    margin-right: .5rem;
+    margin-bottom: .25rem;
+    color: rgb(0, 238, 255);
+}
+
+.ArticleListCard:hover {
+    width: 20rem;
+    transition: width 300ms ease;
+}
