@@ -15,6 +15,7 @@ import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import ArticleIndex from './components/articles/ArticleIndex'
 import ArticleShow from './components/articles/ArticleShow'
+import ArticleCreate from './components/articles/ArticleCreate'
 
 const App = () => {
 
@@ -85,6 +86,14 @@ const App = () => {
 					path='/articles/:id'
 					element={
 						<ArticleShow user={user} msgAlert={msgAlert} />
+					}
+				/>
+				<Route
+					path='/create-article'
+					element={
+						<RequireAuth user={user}>
+							<ArticleCreate user={user} msgAlert={msgAlert} />
+						</RequireAuth>
 					}
 				/>
 			</Routes>
