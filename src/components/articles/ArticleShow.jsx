@@ -45,7 +45,7 @@ export default function ArticleShow (props) {
     if (article && article.sections.length > 0) {
         articleSections = article.sections.map(section => (
             <Row style={{borderBottom: '1px solid white', paddingBottom: '2vmin'}}>
-                <h3 style={{padding: '1vmin'}}>{section.heading}</h3>
+                <h3 style={{padding: '1vmin', paddingLeft: '0'}}>{section.heading}</h3>
                 <p style={{padding: 0}}>{section.body}</p>
             </Row>
         ))
