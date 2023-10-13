@@ -14,6 +14,7 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import ArticleIndex from './components/articles/ArticleIndex'
+import ArticleShow from './components/articles/ArticleShow'
 
 const App = () => {
 
@@ -78,6 +79,12 @@ const App = () => {
 					path='/articles'
 					element={
 						<ArticleIndex msgAlert={msgAlert} />
+					}
+				/>
+				<Route
+					path='/articles/:id'
+					element={
+						<ArticleShow user={user} msgAlert={msgAlert} />
 					}
 				/>
 			</Routes>
