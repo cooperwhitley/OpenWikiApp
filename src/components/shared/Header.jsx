@@ -53,7 +53,7 @@ const alwaysOptions = (
 )
 
 const Header = ({ user }) => (
-	<Navbar bg='dark' variant='dark' expand='md' style={{position: 'fixed', width: '100vw', zIndex: '3000'}}>
+	<Navbar bg='dark' variant='dark' expand='md' style={{position: 'fixed', width: '100vw', zIndex: '1'}}>
 		<Navbar.Brand>
             <Link to='/' style={linkStyle} className='m-2'>
                 OpenWiki
