@@ -131,7 +131,7 @@ export default function ArticleShow (props) {
     }
 
     let addButtons
-    if (article && user && article.owner._id === user._id || article.publicallyEditable) {
+    if (article && user && article.owner._id === user._id || article.publicallyEditable && user) {
         addButtons = (
             <Card.Text>
                 <Row>
