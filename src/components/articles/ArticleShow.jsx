@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import LoadingScreen from '../shared/LoadingScreen'
+import EditArticleModal from './EditArticleModal'
 import { Container, Card, Button, Row, Col } from 'react-bootstrap'
 
 import { getOneArticle, updateArticle, removeArticle } from '../../api/article'
@@ -9,7 +10,7 @@ import messages from '../shared/AutoDismissAlert/messages'
 
 export default function ArticleShow (props) {
     const [article, setArticle] = useState(null)
-    
+    const [editModalShow, setEditModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
 
     const navigate = useNavigate()
@@ -28,6 +29,25 @@ export default function ArticleShow (props) {
                 })
             })
     }, [updated])
+
+    const destroyArticle = () => {
+        removeArticle(user, article._id)
+            .then(() =>
+                msgAlert({
+                    heading: 'success',
+                    message: messages.removeArticleSuccess,
+                    variant: 'success'
+                })
+            )
+            .then(() => navigate('/articles'))
+            .catch(() =>
+                msgAlert({
+                    heading: 'error',
+                    message: messages.removeArticleFailure,
+                    variant: 'danger'
+                })
+            )
+    }
 
     let infoBoxes
     if (article && article.infoBoxes.length > 0) {
@@ -60,6 +80,54 @@ export default function ArticleShow (props) {
             }/${article.updatedAt.slice(0, 4)}`
     }
 
+    let adminButtons = null
+    if (article && article.publicallyEditable && user && article.owner._id === user._id) {
+        adminButtons = (
+            <>
+                <Button
+                    className='m-2' variant='info'
+                    onClick={() => setEditModalShow(true)}
+                >
+                    Edit
+                </Button>
+                <Button
+                    className='m-2' variant='danger'
+                    onClick={() => destroyArticle()}
+                >
+                    Delete
+                </Button>
+            </>
+        )
+    } else if (article && article.publicallyEditable && user) {
+        adminButtons = (
+            <>
+                <Button
+                    className='m-2' variant='info'
+                    onClick={() => setEditModalShow(true)}
+                >
+                    Edit
+                </Button>
+            </>
+        )
+    }else if (article && !article.publicallyEditable && user && article.owner._id === user._id) {
+        adminButtons = (
+            <Row>
+                <Button
+                    className='m-2' variant='info'
+                    onClick={() => setEditModalShow(true)}
+                >
+                    Edit
+                </Button>
+                <Button
+                    className='m-2' variant='danger'
+                    onClick={() => destroyArticle()}
+                >
+                    Delete
+                </Button>
+            </Row>
+        )
+    }
+
     if (!article) {
         return <LoadingScreen />
     }
@@ -86,7 +154,17 @@ export default function ArticleShow (props) {
                 <Row>
                     <p style={{padding: 0, textAlign: 'center'}}>{article.editorList}; &nbsp;last updated {lastUpdated}</p>
                 </Row>
+                {adminButtons}
             </Container>
+            <EditArticleModal
+                user={user}
+                show={editModalShow}
+                updateArticle={updateArticle}
+                msgAlert={msgAlert}
+                handleClose={() => setEditModalShow(false)}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+                article={article}
+            />
         </div>
     )
 }
