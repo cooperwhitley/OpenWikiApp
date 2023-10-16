@@ -53,7 +53,7 @@ export default function EditArticleModal(props) {
 
     return (
         <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton />
+            <Modal.Header closeButton style={{borderBottom: 'none', paddingBottom: '0'}}/>
             <Modal.Body>
                 <ArticleForm
                     article={article}
