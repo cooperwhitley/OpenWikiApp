@@ -4,17 +4,19 @@ import LoadingScreen from '../shared/LoadingScreen'
 import EditArticleModal from './EditArticleModal'
 import ShowArticleSection from '../articleSections/ShowArticleSection'
 import { Container, Card, Button, Row, Col } from 'react-bootstrap'
-import { BsPencil, BsTrash3 } from 'react-icons/bs'
+import { BsPencil, BsTrash3, BsPlusSquare } from 'react-icons/bs'
 
 import { getOneArticle, updateArticle, removeArticle } from '../../api/article'
 import { removeArticleSection } from '../../api/articleSection'
 import { removeInfoBox } from '../../api/infoBox'
 
 import messages from '../shared/AutoDismissAlert/messages'
+import NewArticleSectionModal from '../articleSections/NewArticleSectionModal'
 
 export default function ArticleShow (props) {
     const [article, setArticle] = useState(null)
     const [editModalShow, setEditModalShow] = useState(false)
+    const [sectionModalShow, setSectionModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
     let activeInfoBox = null
 
@@ -165,6 +167,27 @@ export default function ArticleShow (props) {
             />
         ))
     }
+
+    let addButtons
+    if (article && user && article.owner._id === user._id || article.publicallyEditable) {
+        addButtons = (
+            <Card.Text>
+                <Row>
+                    <Col>
+                        <Button 
+                            style={{background: 'none', border: 'none', color: 'black', textAlign: 'left'}}
+                            onClick={() => setSectionModalShow(true)}
+                        ><BsPlusSquare style={{color: 'black'}}/> <span style={{fontSize: '1.2vmin'}}>Add section</span></Button>
+                    </Col>
+                    <Col>
+                        <Button 
+                            style={{background: 'none', border: 'none', color: 'black', textAlign: 'left'}}
+                        ><BsPlusSquare style={{color: 'black'}}/> <span style={{fontSize: '1.2vmin'}}>Add Info Box</span></Button>
+                    </Col>
+                </Row>
+            </Card.Text>
+        )
+    }
     
     
     return (
@@ -180,6 +203,7 @@ export default function ArticleShow (props) {
                             <Card.Img variant="top" src={article.photo}/>
                             <Card.Body>
                                 {infoBoxes}
+                                {addButtons}
                             </Card.Body>
                         </Card>
                     </Col>
@@ -198,6 +222,14 @@ export default function ArticleShow (props) {
                 handleClose={() => setEditModalShow(false)}
                 triggerRefresh={() => setUpdated(prev => !prev)}
                 article={article}
+            />
+            <NewArticleSectionModal
+                user={user}
+                article={article}
+                show={sectionModalShow}
+                msgAlert={msgAlert}
+                handleClose={() => setSectionModalShow(false)}
+                triggerRefresh={() => setUpdated(prev => !prev)}
             />
         </div>
     )
