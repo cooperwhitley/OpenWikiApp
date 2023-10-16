@@ -13,7 +13,7 @@ export default function (props) {
                         placeholder="title"
                         id="title"
                         name="title"
-                        value={ article.name }
+                        value={ article.title }
                         onChange={ handleChange }
                     />
                 </Form.Group>
