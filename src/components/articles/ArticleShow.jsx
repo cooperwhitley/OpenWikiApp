@@ -12,12 +12,14 @@ import { removeInfoBox } from '../../api/infoBox'
 
 import messages from '../shared/AutoDismissAlert/messages'
 import NewArticleSectionModal from '../articleSections/NewArticleSectionModal'
+import NewInfoBoxModal from '../infoBoxes/NewInfoBoxModal'
 import ShowInfoBox from '../infoBoxes/ShowInfoBox'
 
 export default function ArticleShow (props) {
     const [article, setArticle] = useState(null)
     const [editModalShow, setEditModalShow] = useState(false)
     const [sectionModalShow, setSectionModalShow] = useState(false)
+    const [infoBoxModalShow, setInfoBoxModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
 
     const navigate = useNavigate()
@@ -142,6 +144,7 @@ export default function ArticleShow (props) {
                     <Col>
                         <Button 
                             style={{background: 'none', border: 'none', color: 'black', textAlign: 'left'}}
+                            onClick={() => setInfoBoxModalShow(true)}
                         ><BsPlusSquare style={{color: 'black'}}/> <span style={{fontSize: '1.2vmin'}}>Add Info Box</span></Button>
                     </Col>
                 </Row>
@@ -189,6 +192,14 @@ export default function ArticleShow (props) {
                 show={sectionModalShow}
                 msgAlert={msgAlert}
                 handleClose={() => setSectionModalShow(false)}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+            />
+            <NewInfoBoxModal
+                user={user}
+                article={article}
+                show={infoBoxModalShow}
+                msgAlert={msgAlert}
+                handleClose={() => setInfoBoxModalShow(false)}
                 triggerRefresh={() => setUpdated(prev => !prev)}
             />
         </div>
