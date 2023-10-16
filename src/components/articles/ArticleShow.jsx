@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import LoadingScreen from '../shared/LoadingScreen'
 import EditArticleModal from './EditArticleModal'
+import ShowArticleSection from '../articleSections/ShowArticleSection'
 import { Container, Card, Button, Row, Col } from 'react-bootstrap'
 import { BsPencil, BsTrash3 } from 'react-icons/bs'
 
@@ -16,7 +17,6 @@ export default function ArticleShow (props) {
     const [editModalShow, setEditModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
     let activeInfoBox = null
-    let activeSection = null
 
     const navigate = useNavigate()
 
@@ -72,25 +72,6 @@ export default function ArticleShow (props) {
                 })
             )
     }
-
-    const destroySection = () => {
-        removeArticleSection(user, activeSection._id)
-            .then(() =>
-                msgAlert({
-                    heading: 'success',
-                    message: messages.removeArticleSectionSuccess,
-                    variant: 'success'
-                })
-            )
-            .then(() => setUpdated(prev => !prev))
-            .catch(() =>
-                msgAlert({
-                    heading: 'error',
-                    message: messages.removeArticleSectionFailure,
-                    variant: 'danger'
-                })
-            )
-    }
     
     let lastUpdated
     if (article) {
@@ -102,7 +83,6 @@ export default function ArticleShow (props) {
         }
         
     let adminButtons = null
-    let sectionButtons = null
     let infoBoxButtons = null
     if (article && user && article.owner._id === user._id) {
         adminButtons = (
@@ -135,12 +115,6 @@ export default function ArticleShow (props) {
                 </Row>
             </Col>
         )
-        sectionButtons = (
-            <>
-                <Button style={{background: 'none', border: 'none', marginLeft: '-1vmin', marginTop: '-.5vmin'}}><BsPencil /></Button>
-                <Button style={{background: 'none', border: 'none', marginLeft: '-1vmin', marginTop: '-.5vmin'}}><BsTrash3 /></Button>
-            </>
-        )
     } else if (article && article.publicallyEditable && user) {
         adminButtons = (
             <>
@@ -158,11 +132,6 @@ export default function ArticleShow (props) {
                     style={{background: 'none', border: 'none', marginLeft: '-2.5vmin'}}
                 ><BsPencil style={{color: 'black'}}/></Button>
             </Col>
-        )
-        sectionButtons = (
-            <>
-                <Button style={{background: 'none', border: 'none', marginLeft: '-1vmin', marginTop: '-.5vmin'}}><BsPencil /></Button>
-            </>
         )
     }
     
@@ -186,10 +155,14 @@ export default function ArticleShow (props) {
     let articleSections
     if (article && article.sections.length > 0) {
         articleSections = article.sections.map(section => (
-            <Row style={{borderBottom: '1px solid white', paddingBottom: '2vmin'}}>
-                <h3 style={{padding: '1vmin', paddingLeft: '0'}}>{sectionButtons}{section.heading}</h3>
-                <p style={{padding: 0}}>{section.body}</p>
-            </Row>
+            <ShowArticleSection
+                key={section.id}
+                section={section}
+                msgAlert={msgAlert}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+                user={user}
+                article={article}
+            />
         ))
     }
     
