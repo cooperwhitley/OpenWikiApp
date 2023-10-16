@@ -25,7 +25,7 @@ export const updateArticle = (user, updatedArticle) => {
         headers: {
             Authorization: `Token token=${user.token}`
         },
-        data: { article: updateArticle}
+        data: { article: updatedArticle }
     })
 }
 
