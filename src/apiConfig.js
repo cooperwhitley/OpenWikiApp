@@ -1,7 +1,7 @@
 let apiUrl
 const apiUrls = {
     // YOU MUST CHANGE PRODUCTION URL WHEN DEPLOYING
-	production: 'https://open-wiki-api.fly.dev/',
+	production: 'https://open-wiki-api.fly.dev',
 	development: 'http://localhost:8000',
 }
 
