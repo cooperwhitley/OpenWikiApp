@@ -5,10 +5,10 @@ export default function (props) {
 
     return (
         <Container className="justify-content-center">
-            <h3>{heading}</h3>
+            <h3 style={{color: 'black'}}>{heading}</h3>
             <Form onSubmit={handleSubmit}>
                 <Form.Group className="m-2">
-                    <Form.Label>Article Title</Form.Label>
+                    <Form.Label style={{color: 'black'}}>Article Title</Form.Label>
                     <Form.Control
                         placeholder="title"
                         id="title"
@@ -18,7 +18,7 @@ export default function (props) {
                     />
                 </Form.Group>
                 <Form.Group className="m-2">
-                    <Form.Label>Summary Section</Form.Label>
+                    <Form.Label style={{color: 'black'}}>Summary Section</Form.Label>
                     <Form.Control
                         as="textarea"
                         placeholder="Summarize the topic here"
@@ -34,10 +34,11 @@ export default function (props) {
                         name="publicallyEditable"
                         defaultChecked={ article.publicallyEditable }
                         onChange={ handleChange }
+                        style={{color: 'black'}}
                     />
                 </Form.Group>
                 <Form.Group>
-                    <Form.Label>Upload Photo</Form.Label>
+                    <Form.Label style={{color: 'black'}}>Upload Photo</Form.Label>
                     <Form.Control
                         placeholder="link goes here"
                         id="photo"
