@@ -12,13 +12,13 @@ import { removeInfoBox } from '../../api/infoBox'
 
 import messages from '../shared/AutoDismissAlert/messages'
 import NewArticleSectionModal from '../articleSections/NewArticleSectionModal'
+import ShowInfoBox from '../infoBoxes/ShowInfoBox'
 
 export default function ArticleShow (props) {
     const [article, setArticle] = useState(null)
     const [editModalShow, setEditModalShow] = useState(false)
     const [sectionModalShow, setSectionModalShow] = useState(false)
     const [updated, setUpdated] = useState(false)
-    let activeInfoBox = null
 
     const navigate = useNavigate()
 
@@ -55,25 +55,6 @@ export default function ArticleShow (props) {
                 })
             )
     }
-
-    const destroyInfoBox = () => {
-        removeInfoBox(user, activeInfoBox._id)
-            .then(() =>
-                msgAlert({
-                    heading: 'success',
-                    message: messages.removeInfoBoxSuccess,
-                    variant: 'success'
-                })
-            )
-            .then(() => setUpdated(prev => !prev))
-            .catch(() =>
-                msgAlert({
-                    heading: 'error',
-                    message: messages.removeInfoBoxFailure,
-                    variant: 'danger'
-                })
-            )
-    }
     
     let lastUpdated
     if (article) {
@@ -85,7 +66,6 @@ export default function ArticleShow (props) {
         }
         
     let adminButtons = null
-    let infoBoxButtons = null
     if (article && user && article.owner._id === user._id) {
         adminButtons = (
             <>
@@ -103,20 +83,6 @@ export default function ArticleShow (props) {
                 </Button>
             </>
         )
-        infoBoxButtons = (
-            <Col md='auto'>
-                <Row>
-                    <Button 
-                        style={{background: 'none', border: 'none', marginLeft: '-2vmin', marginTop: '-.8vmin'}}
-                    ><BsPencil style={{color: 'black'}}/></Button>
-                </Row>
-                <Row>
-                    <Button 
-                        style={{background: 'none', border: 'none', marginLeft: '-2vmin', marginTop: '-.9vmin'}}
-                    ><BsTrash3 style={{color: 'black'}}/></Button>
-                </Row>
-            </Col>
-        )
     } else if (article && article.publicallyEditable && user) {
         adminButtons = (
             <>
@@ -128,13 +94,6 @@ export default function ArticleShow (props) {
                 </Button>
             </>
         )
-        infoBoxButtons = (
-            <Col md='auto'>
-                <Button 
-                    style={{background: 'none', border: 'none', marginLeft: '-2.5vmin'}}
-                ><BsPencil style={{color: 'black'}}/></Button>
-            </Col>
-        )
     }
     
     if (!article) {
@@ -144,13 +103,14 @@ export default function ArticleShow (props) {
     let infoBoxes
     if (article && article.infoBoxes.length > 0) {
         infoBoxes = article.infoBoxes.map(infoBox => (
-            <Card.Text>
-                <Row>
-                    <Col style={{borderRight: '1px solid black'}}>{infoBox.title}</Col>
-                    <Col>{infoBox.summary}</Col>
-                    { infoBoxButtons }
-                </Row>
-            </Card.Text>
+            <ShowInfoBox 
+                key={infoBox.id}
+                infoBox={infoBox}
+                msgAlert={msgAlert}
+                triggerRefresh={() => setUpdated(prev => !prev)}
+                user={user}
+                article={article}
+            />
         ))
     }
 
