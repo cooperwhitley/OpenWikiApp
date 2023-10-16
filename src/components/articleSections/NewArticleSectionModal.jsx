@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 import ArticleSectionForm from '../shared/forms/ArticleSectionForm'
 import messages from '../shared/AutoDismissAlert/messages'
-import { createArticleSection} from '../../api/articleSection'
+import { createArticleSection } from '../../api/articleSection'
 
 export default function NewArticleSectionModal(props) {
     const { user, article, show, handleClose, msgAlert, triggerRefresh } = props
